@@ -1,0 +1,18 @@
+package br.com.fiap.inventory_management.usecase;
+
+import br.com.fiap.inventory_management.domain.Inventory;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+public class CreateInventoryUseCaseTest {
+    private final String defaultSku = "160799-0001";
+    private final int defaultQuantity = 10;
+
+    @Test
+    void shouldCreateInventoryUseCase() {
+        Inventory inventory = CreateInventoryUseCase.createInventory(defaultSku, defaultQuantity);
+
+        assertInstanceOf(Inventory.class, inventory);
+    }
+}
