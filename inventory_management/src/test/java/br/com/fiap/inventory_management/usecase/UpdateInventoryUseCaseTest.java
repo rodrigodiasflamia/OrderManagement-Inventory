@@ -8,41 +8,30 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UpdateInventoryUseCaseTest {
     private final Inventory defaultOldInventory = new Inventory("160799-0001", 10);
-    private final Inventory defaultNewInventory = new Inventory("160799-0001", 15);
+    private final int defaultNewQuantity = 15;
 
     @Test
     void throwsExceptionWhenOldInventoryIsNull() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> UpdateInventoryUseCase.updateInventory(null, defaultNewInventory),
+                () -> UpdateInventoryUseCase.updateInventory(null, defaultNewQuantity),
                 "Old inventory is required"
         );
     }
 
     @Test
-    void throwsExceptionWhenNewInventoryIsNull() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> UpdateInventoryUseCase.updateInventory(defaultOldInventory, null),
-                "New inventory is required"
-        );
-    }
-
-    @Test
     void throwsExceptionWhenOldInventoryIsEqualToNewInventory() {
-        final Inventory newInventory = new Inventory("160799-0001", 10);
-
         assertThrows(
                 IllegalArgumentException.class,
-                () -> UpdateInventoryUseCase.updateInventory(defaultOldInventory, newInventory),
-                "Old inventory and new inventory are the same"
+                () -> UpdateInventoryUseCase.updateInventory(defaultOldInventory, 10),
+                "Old quantity and new quantity are the same"
         );
     }
 
     @Test
     void updateInventory() {
-        final Inventory updatedInventory = UpdateInventoryUseCase.updateInventory(defaultOldInventory, defaultNewInventory);
+        final Inventory updatedInventory = UpdateInventoryUseCase.updateInventory(defaultOldInventory, defaultNewQuantity);
 
-        assertEquals(defaultNewInventory, updatedInventory);
+        assertEquals(defaultOldInventory, updatedInventory);
     }
 }

@@ -4,14 +4,13 @@ import br.com.fiap.inventory_management.domain.Inventory;
 
 public class UpdateInventoryUseCase {
 
-    public static Inventory updateInventory(Inventory oldInventory, Inventory newInventory) {
-        validateOldInventory(oldInventory);
-        validateNewInventory(newInventory);
-        validateUpdateInventory(oldInventory, newInventory);
+    public static Inventory updateInventory(Inventory inventory, int quantity) {
+        validateOldInventory(inventory);
+        validateNewQuantity(quantity);
+        validateUpdateQuantityInventory(inventory.getQuantity(), quantity);
 
-        oldInventory.setSku(newInventory.getSku());
-        oldInventory.setQuantity(newInventory.getQuantity());
-        return oldInventory;
+        inventory.setQuantity(quantity);
+        return inventory;
     }
 
     private static void validateOldInventory(Inventory inventory) {
@@ -20,15 +19,15 @@ public class UpdateInventoryUseCase {
         }
     }
 
-    private static void validateNewInventory(Inventory inventory) {
-        if (inventory == null) {
-            throw new IllegalArgumentException("New inventory is required");
+    private static void validateNewQuantity(int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("New quantity is invalid");
         }
     }
 
-    private static void validateUpdateInventory(Inventory oldInventory, Inventory newInventory) {
-        if (oldInventory.equals(newInventory)) {
-            throw new IllegalArgumentException("Old inventory and new inventory are the same");
+    private static void validateUpdateQuantityInventory(int oldQuantity, int newQuantity) {
+        if (oldQuantity == newQuantity) {
+            throw new IllegalArgumentException("Old quantity and new quantity are the same");
         }
     }
 }
