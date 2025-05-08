@@ -11,20 +11,11 @@ public class UpdateInventoryUseCaseTest {
     private final int defaultNewQuantity = 15;
 
     @Test
-    void throwsExceptionWhenOldInventoryIsNull() {
+    void throwsExceptionWhenNewQuantityIsNegative() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> UpdateInventoryUseCase.updateInventory(null, defaultNewQuantity),
-                "Old inventory is required"
-        );
-    }
-
-    @Test
-    void throwsExceptionWhenOldInventoryIsEqualToNewInventory() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> UpdateInventoryUseCase.updateInventory(defaultOldInventory, 10),
-                "Old quantity and new quantity are the same"
+                () -> UpdateInventoryUseCase.updateInventory(defaultOldInventory, -1),
+                "There are not enough products in inventory"
         );
     }
 

@@ -33,10 +33,18 @@ public class InventoryController {
         return new InventoryDto(inventoryJpaGateway.create(inventory));
     }
 
-    @PutMapping("/updateInventory/{sku}/{quantity}")
-    public InventoryDto updateInventory(@PathVariable("sku") String sku, @PathVariable("quantity") int quantity) {
+    @PatchMapping("/addQuantityInventory/{sku}/{quantity}")
+    public InventoryDto addQuantityInventory(@PathVariable("sku") String sku, @PathVariable("quantity") int quantity) {
         Inventory inventory = inventoryJpaGateway.findBySku(sku);
-        Inventory updatedInventory = UpdateInventoryUseCase.updateInventory(inventory, quantity);
+        Inventory updatedInventory = UpdateInventoryUseCase.updateInventory(inventory, inventory.getQuantity() + quantity);
+
+        return new InventoryDto(inventoryJpaGateway.update(updatedInventory));
+    }
+
+    @PatchMapping("/removeQuantityInventory/{sku}/{quantity}")
+    public InventoryDto removeQuantityInventory(@PathVariable("sku") String sku, @PathVariable("quantity") int quantity) {
+        Inventory inventory = inventoryJpaGateway.findBySku(sku);
+        Inventory updatedInventory = UpdateInventoryUseCase.updateInventory(inventory, inventory.getQuantity() - quantity);
 
         return new InventoryDto(inventoryJpaGateway.update(updatedInventory));
     }
