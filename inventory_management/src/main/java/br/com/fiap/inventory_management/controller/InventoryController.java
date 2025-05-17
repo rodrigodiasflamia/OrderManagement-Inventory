@@ -56,7 +56,7 @@ public class InventoryController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Quantidade adicionada com sucesso!")
     })
-    @PatchMapping("/addQuantityInventory/{sku}/{quantity}")
+    @PutMapping("/addQuantityInventory/{sku}/{quantity}")
     public InventoryDto addQuantityInventory(@PathVariable("sku") String sku, @PathVariable("quantity") int quantity) {
         Inventory inventory = inventoryJpaGateway.findBySku(sku);
         Inventory updatedInventory = UpdateInventoryUseCase.updateInventory(inventory, inventory.getQuantity() + quantity);
@@ -69,7 +69,7 @@ public class InventoryController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Quantidade removida com sucesso!")
     })
-    @PatchMapping("/removeQuantityInventory/{sku}/{quantity}")
+    @PutMapping("/removeQuantityInventory/{sku}/{quantity}")
     public InventoryDto removeQuantityInventory(@PathVariable("sku") String sku, @PathVariable("quantity") int quantity) {
         Inventory inventory = inventoryJpaGateway.findBySku(sku);
         Inventory updatedInventory = UpdateInventoryUseCase.updateInventory(inventory, inventory.getQuantity() - quantity);
