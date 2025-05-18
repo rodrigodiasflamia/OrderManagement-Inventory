@@ -73,8 +73,12 @@ public class Inventory {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
+
         Inventory inventory = (Inventory) o;
-        return quantity == inventory.quantity && Objects.equals(id, inventory.id) && Objects.equals(sku, inventory.sku);
+        return quantity == inventory.quantity
+                && Objects.equals(id, inventory.id)
+                && Objects.equals(sku, inventory.sku);
     }
 }
